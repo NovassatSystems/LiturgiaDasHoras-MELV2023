@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LiturgiaDasHoras.LiturgicalCalendarPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:LiturgiaDasHoras"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    x:Name="root"
+    Title="LiturgicalCalendarPage"
+    BackgroundColor="#1F1013"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Local:StoleToColorConverter x:Key="stoleToColorConverter" />
+            <Local:EnumToStoleConverter x:Key="enumToStoleConverter" />
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
+            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="16" RowDefinitions="Auto, *">
+        <ImageButton
+            Command="{Binding GoBackCommand}"
+            HeightRequest="32"
+            HorizontalOptions="Start"
+            Source="go_back.svg"
+            WidthRequest="32" />
+        <Label
+            Grid.Row="0"
+            Margin="16"
+            FontFamily="Liturgia"
+            FontSize="20"
+            HorizontalOptions="FillAndExpand"
+            HorizontalTextAlignment="Center"
+            Text="Calendário Litúrgico"
+            TextColor="Wheat" />
+
+        <ScrollView Grid.Row="1">
+            <StackLayout BindableLayout.ItemsSource="{Binding Days}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,4"
+                            Padding="0"
+                            Background="{Binding Estola, Converter={StaticResource stoleToColorConverter}}"
+                            HeightRequest="48"
+                            HorizontalOptions="FillAndExpand"
+                            Stroke="{Binding Estola, Converter={StaticResource stoleToColorConverter}}"
+                            StrokeShape="RoundRectangle 8,8,8,8"
+                            StrokeThickness="0">
+                            <Grid>
+                                <Image
+                                    Margin="0,0,-16,0"
+                                    HeightRequest="82"
+                                    HorizontalOptions="End"
+                                    Opacity="0.2"
+                                    Rotation="45"
+                                    Source="{Binding Estola, Converter={StaticResource enumToStoleConverter}}"
+                                    VerticalOptions="CenterAndExpand" />
+
+
+                                <Grid
+                                    Padding="0,8,8,8"
+                                    ColumnDefinitions="36, *"
+                                    ColumnSpacing="0"
+                                    RowDefinitions="*,*">
+
+                                    <BoxView
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Margin="0,-8,0,-8"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="8"
+                                        Color="{Binding Estola, Converter={StaticResource stoleToColorConverter}}" />
+
+                                    <VerticalStackLayout
+                                        Grid.RowSpan="2"
+                                        Margin="14,0,-8,0"
+                                        x:DataType="Local:LiturgicalDay"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="CenterAndExpand">
+
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding Date, StringFormat='{}{0:ddd}'}"
+                                            TextColor="Wheat"
+                                            TextTransform="Uppercase"
+                                            VerticalTextAlignment="Center" />
+                                    </VerticalStackLayout>
+
+
+
+                                    <HorizontalStackLayout
+                                        Grid.RowSpan="2"
+                                        Grid.Column="1"
+                                        Margin="16,0,0,0"
+                                        x:DataType="Local:LiturgicalDay"
+                                        HorizontalOptions="FillAndExpand">
+                                        <VerticalStackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                                            <Label
+                                                FontSize="12"
+                                                TextColor="Wheat"
+                                                VerticalOptions="FillAndExpand">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding Date, StringFormat='{}{0:dd/MM}'}" />
+                                                        <Span Text=" - " />
+                                                        <Span Text="{Binding Title}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                                <Label.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding TemMemoria}"
+                                                        TargetType="Label"
+                                                        Value="False">
+                                                        <Setter Property="FontSize" Value="16" />
+                                                        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                                                        <Setter Property="VerticalTextAlignment" Value="Center" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <StackLayout
+                                                HorizontalOptions="Start"
+                                                IsVisible="{Binding TemMemoria}"
+                                                Orientation="Horizontal"
+                                                VerticalOptions="FillAndExpand"
+                                                WidthRequest="300">
+                                                <Image
+                                                    Margin="0,0,4,0"
+                                                    HorizontalOptions="Start"
+                                                    Source="{Binding Estola, Converter={StaticResource enumToStoleConverter}}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="12" />
+                                                <Label
+                                                    HorizontalOptions="StartAndExpand"
+                                                    LineBreakMode="TailTruncation"
+                                                    MaxLines="2"
+                                                    Text="{Binding MemoriaTitulo}"
+                                                    TextColor="Wheat"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    VerticalTextAlignment="Center" />
+
+                                            </StackLayout>
+                                        </VerticalStackLayout>
+                                        <HorizontalStackLayout.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding TemMemoria}"
+                                                TargetType="HorizontalStackLayout"
+                                                Value="False">
+                                                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                                            </DataTrigger>
+                                        </HorizontalStackLayout.Triggers>
+                                    </HorizontalStackLayout>
+
+
+                                </Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.SelectDayCommand}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <Border.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="0">
+                                    <Setter Property="Background" Value="#33ffffff" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="1">
+                                    <Setter Property="Background" Value="#33FFF9EB" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="2">
+                                    <Setter Property="Background" Value="#33FFBAE0" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="3">
+                                    <Setter Property="Background" Value="#33403152" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="4">
+                                    <Setter Property="Background" Value="#33007834" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding Estola}"
+                                    TargetType="Border"
+                                    Value="5">
+                                    <Setter Property="Background" Value="#33C00000" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

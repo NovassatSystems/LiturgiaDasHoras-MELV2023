@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Toolkit:Popup
+    x:Class="LiturgiaDasHoras.MemoryPopupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Color="Transparent">
+    <Frame
+        Padding="16,32,16,16"
+        BackgroundColor="#1F1013"
+        BorderColor="Transparent"
+        CornerRadius="8"
+        HorizontalOptions="FillAndExpand">
+        <Grid
+            BackgroundColor="Transparent"
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="Auto, Auto, Auto"
+            RowSpacing="24"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="300">
+            <Image
+                Grid.Row="0"
+                HeightRequest="34"
+                HorizontalOptions="Center"
+                Source="estola_branco.png"
+                VerticalOptions="Center"
+                WidthRequest="32" />
+            <VerticalStackLayout Grid.Row="1" Spacing="8">
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="18"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="MEMÓRIA FACULTATIVA"
+                    TextColor="White" />
+                <Label
+                    FontFamily="JoseRegular"
+                    FontSize="14"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="São Nicolau, bispo."
+                    TextColor="#F2CB56" />
+
+                <Label
+                    FontFamily="JoseRegular"
+                    FontSize="14"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Deseja rezar a Memória?"
+                    TextColor="#F2CB56" />
+            </VerticalStackLayout>
+
+            <Grid
+                Grid.Row="2"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="16"
+                HeightRequest="60">
+                <Button
+                    BorderColor="White"
+                    BorderWidth="2"
+                    Clicked="OnNoButtonClicked"
+                    Text="NÃO"
+                    TextColor="White" />
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Clicked="OnYesButtonClicked"
+                    Text="SIM"
+                    TextColor="#1F1013" />
+
+            </Grid>
+        </Grid>
+    </Frame>
+
+</Toolkit:Popup>

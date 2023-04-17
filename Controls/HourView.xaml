@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Frame
+    x:Class="LiturgiaDasHoras.HourView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="Root"
+    Padding="8"
+    BackgroundColor="#33ffffff"
+    BorderColor="Transparent"
+    CornerRadius="8">
+
+    <Grid
+        ColumnDefinitions="Auto, *"
+        HorizontalOptions="CenterAndExpand"
+        RowDefinitions="Auto,Auto">
+        <Label
+            x:Name="initial"
+            Margin="16,16,-18,22"
+            FontFamily="Initial"
+            FontSize="32"
+            HorizontalOptions="CenterAndExpand"
+            Text="{Binding Initial, Source={x:Reference Root}}"
+            TextColor="Wheat"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center" />
+        <Label
+            Grid.Column="1"
+            Margin="16"
+            FontFamily="Cursiva"
+            FontSize="32"
+            HorizontalOptions="StartAndExpand"
+            Text="{Binding Complement, Source={x:Reference Root}}"
+            TextColor="Wheat"
+            VerticalOptions="CenterAndExpand" />
+
+        <Label
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,-2"
+            FontFamily="Cursiva"
+            FontSize="12"
+            HorizontalOptions="CenterAndExpand"
+            Text="{Binding Hora, Source={x:Reference Root}}"
+            TextColor="Wheat"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer
+            Command="{Binding Command, Source={x:Reference Root}}"
+            CommandParameter="{Binding CommandParameter, Source={x:Reference Root}}"
+            NumberOfTapsRequired="1" />
+    </Frame.GestureRecognizers>
+</Frame>
+

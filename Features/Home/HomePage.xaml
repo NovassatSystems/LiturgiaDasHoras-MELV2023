@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LiturgiaDasHoras.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:LiturgiaDasHoras"
+    x:DataType="Local:HomePageViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Local:EnumToStoleConverter x:Key="enumToEstolaConverter" />
+            <Local:InverseBooleanConverter x:Key="inverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView BackgroundColor="#1F1013">
+
+        <Grid
+            Padding="16"
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="Auto, *"
+            RowSpacing="16"
+            VerticalOptions="FillAndExpand">
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                HeightRequest="500"
+                HorizontalOptions="FillAndExpand"
+                Source="back.svg"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="500" />
+
+            <Grid
+                Grid.Row="0"
+                Margin="0,16,0,0"
+                ColumnDefinitions="Auto,*,Auto"
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="Auto"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontFamily="Liturgia"
+                    FontSize="20"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Salve Maria"
+                    TextColor="Wheat"
+                    VerticalOptions="CenterAndExpand" />
+                <Image
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    HeightRequest="32"
+                    IsVisible="{Binding LiturgicalDay.TemMemoria}"
+                    Source="{Binding LiturgicalDay.MemoriaEstola, Converter={StaticResource enumToEstolaConverter}}">
+                    <Image.Triggers>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.MemoriaObrigatoria}"
+                            TargetType="Image"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Padding="0"
+                    ColumnDefinitions="Auto"
+                    HorizontalOptions="EndAndExpand"
+                    RowDefinitions="Auto"
+                    VerticalOptions="CenterAndExpand">
+                    <Image
+                        HeightRequest="40"
+                        Source="calendar.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="40" />
+
+                    <Label
+                        Margin="16,8,0,0"
+                        HeightRequest="32"
+                        Text="{Binding LiturgicalDay.Date, StringFormat='{}{0:dd}'}"
+                        TextColor="Wheat"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="32" >
+                        <!--<Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding RetreatNotStarted}" Value="True">
+                                <Setter Property="Text" Value="{Binding Today, StringFormat='{}{0:dd}'}" />
+                            </DataTrigger>
+                            </Label.Triggers>-->
+                    </Label>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenListHoursCommand}" NumberOfTapsRequired="1" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="Auto, Auto, Auto, *, Auto, Auto, Auto, Auto"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    Margin="0,0,0,16"
+                    FontFamily="Liturgia"
+                    FontSize="36"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="Liturgia das Horas"
+                    TextColor="Wheat"
+                    VerticalOptions="StartAndExpand" />
+
+                <Label 
+                    Grid.Row="1" 
+                    Grid.RowSpan="1" 
+                    TextColor="Wheat"
+                    FontSize="26"
+                    IsVisible="{Binding RetreatNotStarted}"
+                    FontFamily="Liturgia"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand" 
+                    Text="Seja bem-vindo ao" />
+
+                <Label 
+                    Grid.Row="2" 
+                    Grid.RowSpan="1" 
+                    TextColor="Wheat"
+                    FontSize="46"
+                    IsVisible="{Binding RetreatNotStarted}"
+                    FontFamily="Liturgia"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand" 
+                    Text="OÁSIS" />
+
+                <Label 
+                    Grid.Row="3" 
+                    Grid.RowSpan="2" 
+                    TextColor="Wheat"
+                    FontSize="26"
+                    IsVisible="{Binding RetreatNotStarted}"
+                    FontFamily="Liturgia"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand" 
+                    Text="da Vida Nova" />
+
+
+                <Label
+                    Grid.Row="1"
+                    Margin="0,0,0,8"
+                    FontFamily="Liturgia"
+                    FontSize="24"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding LiturgicalDay.Date, StringFormat='{}{0:dddd}'}"
+                    TextColor="Wheat"
+                    VerticalOptions="StartAndExpand" />
+
+                <Image
+                    Grid.Row="3"
+                    Margin="0,16"
+                    HeightRequest="66"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Image.Triggers>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="0">
+                            <Setter Property="Source" Value="estola_branco.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="1">
+                            <Setter Property="Source" Value="estola_creme.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="2">
+                            <Setter Property="Source" Value="estola_rosa.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="3">
+                            <Setter Property="Source" Value="estola_roxo.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="4">
+                            <Setter Property="Source" Value="estola_verde.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding LiturgicalDay.Estola}"
+                            TargetType="Image"
+                            Value="5">
+                            <Setter Property="Source" Value="estola_vermelho.png" />
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+
+                <Label
+                    Grid.Row="4"
+                    HorizontalOptions="Center"
+                    Text="{Binding LiturgicalDay.MemoriaTitulo}"
+                    TextColor="Wheat" />
+
+                <Grid
+                    Grid.Row="5"
+                    Margin="0,16,0,0"
+                    ColumnDefinitions="Auto,*,Auto"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto"
+                    VerticalOptions="EndAndExpand">
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontFamily="JoseRegular"
+                        FontSize="14"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Tempo comum"
+                        TextColor="Wheat" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        FontFamily="Liturgia"
+                        FontSize="14"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{Binding LiturgicalDay.SemanaAtual, StringFormat='{0}ª semana do saltério'}"
+                        TextColor="Wheat" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontFamily="Liturgia"
+                        FontSize="14"
+                        HorizontalOptions="EndAndExpand"
+                        Text="Ano A"
+                        TextColor="Wheat" />
+                </Grid>
+
+                <ScrollView
+                    Grid.Row="6"
+                    Margin="0,16"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="EndAndExpand">
+                    <Grid
+                        Padding="0"
+                        ColumnDefinitions="*,*,*"
+                        ColumnSpacing="8"
+                        RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                        RowSpacing="8"
+                        VerticalOptions="StartAndExpand">
+
+                        <Local:HourView
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="0"
+                            Hora="07h00"
+                            Hour="Laudes" />
+
+                        <Local:HourView
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="1"
+                            Hora="09h00"
+                            Hour="Terça" />
+
+                        <Local:HourView
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="2"
+                            Hora="12h00"
+                            Hour="Sexta" />
+
+                        <Local:HourView
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="3"
+                            Hora="15h00"
+                            Hour="Nona" />
+
+                        <Local:HourView
+                            Grid.Row="2"
+                            Grid.ColumnSpan="3"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="4"
+                            Hora="18h00"
+                            Hour="Vésperas" />
+
+                        <Local:HourView
+                            Grid.Row="3"
+                            Grid.ColumnSpan="3"
+                            Command="{Binding OpenHourCommand}"
+                            CommandParameter="5"
+                            Hora="No recolhimento"
+                            Hour="Completas" />
+                    </Grid>
+                </ScrollView>
+
+                <Label
+                    Grid.Row="7"
+                    FontFamily="JoseSemiBold"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="Movimento Evangelizador Luz Vida"
+                    TextColor="Wheat"
+                    VerticalOptions="EndAndExpand" />
+
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

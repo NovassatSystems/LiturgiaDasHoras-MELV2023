@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LiturgiaDasHoras.HourPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:LiturgiaDasHoras"
+    xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="HourPage"
+    x:DataType="Local:HourPageViewModel"
+    BackgroundColor="#1F1013"
+    Shell.NavBarIsVisible="False">
+    <Grid Padding="16,24" RowDefinitions="Auto, *, Auto">
+        <Frame
+            x:Name="frameInviting"
+            Padding="8"
+            BackgroundColor="#33ffffff"
+            BorderColor="Transparent"
+            CornerRadius="8"
+            HeightRequest="60">
+            <Grid HorizontalOptions="FillAndExpand">
+                <ImageButton
+                    Command="{Binding GoBackCommand}"
+                    HeightRequest="24"
+                    HorizontalOptions="StartAndExpand"
+                    Source="go_back"
+                    WidthRequest="24" />
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="24"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="Inivitatório"
+                    TextColor="#F2CB56"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenInvitingCommand}" NumberOfTapsRequired="1" />
+            </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger
+                    Binding="{Binding Hour}"
+                    TargetType="Frame"
+                    Value="0">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Frame.Triggers>
+        </Frame>
+
+        <Frame
+            x:Name="framePath"
+            Grid.Row="1"
+            Margin="0,16"
+            Padding="0">
+            <Grid ColumnDefinitions="*" RowDefinitions="*">
+
+                <WebView
+                    x:Name="webView"
+                    Margin="0,32,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    Source="{Binding Path}"
+                    VerticalOptions="FillAndExpand" />
+                <ImageButton
+                    x:Name="imageButton"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="8"
+                    Command="{Binding GoBackCommand}"
+                    HeightRequest="32"
+                    HorizontalOptions="StartAndExpand"
+                    Source="go_back"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="32">
+                    <ImageButton.Behaviors>
+                        <Toolkit:IconTintColorBehavior TintColor="#1F1013" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
+            </Grid>
+        </Frame>
+
+        <Label
+            Grid.Row="2"
+            FontFamily="JoseSemiBold"
+            HorizontalOptions="FillAndExpand"
+            HorizontalTextAlignment="Center"
+            Text="Movimento Evangelizador Luz Vida"
+            TextColor="White"
+            VerticalOptions="EndAndExpand" />
+    </Grid>
+</ContentPage>

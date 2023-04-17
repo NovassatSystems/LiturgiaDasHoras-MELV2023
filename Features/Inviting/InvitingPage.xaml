@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="LiturgiaDasHoras.InvitingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Local="clr-namespace:LiturgiaDasHoras"
+    x:DataType="Local:InvitingPageViewModel"
+    BackgroundColor="#1F1013"
+    Shell.NavBarIsVisible="False">
+    <Grid Padding="16,24" RowDefinitions="Auto, *, Auto">
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*, Auto, Auto, Auto, Auto"
+            ColumnSpacing="8">
+
+            <Frame
+                Grid.Column="0"
+                Padding="0"
+                BackgroundColor="#33ffffff"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                HeightRequest="60">
+                <HorizontalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Image
+                        HeightRequest="24"
+                        HorizontalOptions="StartAndExpand"
+                        Source="go_back.svg" />
+                    <Label
+                        FontFamily="Liturgia"
+                        FontSize="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Salmo"
+                        TextColor="#F2CB56"
+                        VerticalOptions="CenterAndExpand"
+                        VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame
+                Grid.Column="1"
+                Padding="16,8"
+                BackgroundColor="#33ffffff"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                HeightRequest="60">
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="94"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Psalm}"
+                            TargetType="Label"
+                            Value="94">
+                            <Setter Property="TextColor" Value="#F2CB56" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding ChangePsalmCommand}"
+                        CommandParameter="94"
+                        NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame
+                Grid.Column="2"
+                Padding="16,8"
+                BackgroundColor="#33ffffff"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                HeightRequest="60">
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="23"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Psalm}"
+                            TargetType="Label"
+                            Value="23">
+                            <Setter Property="TextColor" Value="#F2CB56" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding ChangePsalmCommand}"
+                        CommandParameter="23"
+                        NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame
+                Grid.Column="3"
+                Padding="16,8"
+                BackgroundColor="#33ffffff"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                HeightRequest="60">
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="66"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Psalm}"
+                            TargetType="Label"
+                            Value="66">
+                            <Setter Property="TextColor" Value="#F2CB56" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding ChangePsalmCommand}"
+                        CommandParameter="66"
+                        NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame
+                Grid.Column="4"
+                Padding="16,8"
+                BackgroundColor="#33ffffff"
+                BorderColor="Transparent"
+                CornerRadius="8"
+                HeightRequest="60">
+                <Label
+                    FontFamily="Liturgia"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="99"
+                    TextColor="White"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Psalm}"
+                            TargetType="Label"
+                            Value="99">
+                            <Setter Property="TextColor" Value="#F2CB56" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding ChangePsalmCommand}"
+                        CommandParameter="99"
+                        NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+
+
+        <Frame Grid.Row="1" Margin="0,16">
+            <WebView
+                x:Name="webView"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding Source}"
+                VerticalOptions="FillAndExpand" />
+        </Frame>
+
+        <Label
+            Grid.Row="2"
+            FontFamily="JoseSemiBold"
+            HorizontalOptions="FillAndExpand"
+            HorizontalTextAlignment="Center"
+            Text="Movimento Evangelizador Luz Vida"
+            TextColor="White"
+            VerticalOptions="EndAndExpand" />
+    </Grid>
+</ContentPage>
